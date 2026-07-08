@@ -1,35 +1,30 @@
 CC = c++
-CFLAGS = -Werror -Wextra -Wall -std=c++98 -g3 -MMD
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3 -MMD
+
 OBJ_DIR = objs
+NAME = Templates
 
-SRCS = main.cpp Whatever.cpp
-OBJS = $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRCS))
-
+SRCS = main.cpp
+OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 DEPENDS = $(OBJS:.o=.d)
 
-NAME = Templates
 -include $(DEPENDS)
 
-.PHONY: all
 all: $(NAME)
 
 $(NAME): $(OBJS)
-			$(CC) $^ -o $@
+	$(CC) $(OBJS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: %.cpp
-	@mkdir -p $(dir $@)
+	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-
-.PHONY: clean
 clean:
 	rm -rf $(OBJ_DIR)
 
-.PHONY: fclean
 fclean: clean
-	rm -rf $(NAME)
+	rm -f $(NAME)
 
-.PHONY:
 re: fclean all
+
+.PHONY: all clean fclean re
