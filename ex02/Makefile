@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3 -MMD
 OBJ_DIR = objs
 NAME = Array
 
-SRCS = main.cpp
+SRCS = main.cpp Array.tpp
 OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 DEPENDS = $(OBJS:.o=.d)
 
